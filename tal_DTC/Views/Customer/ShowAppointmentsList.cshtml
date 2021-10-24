@@ -6,49 +6,40 @@
 <script>
 	$(document).ready(function () {
 
-		$('#showPopup').click(function () {
-			$('#uploadForm').modal();
-		});
 	});
-	function ShowErrorMessage(errorMessage) {
-		$(".modal-body").html("Failed with error: <br/> " + errorMessage);
+
+	function Popup(str) {		
+		$('.modal-body').html(str);
 		$('#uploadForm').modal();
-	} ‏
+	}
 </script>
 <h2>ShowAppointmentsList</h2>
-<button id="showPopup" class="btn btn-main bold switch-direction">add</button>
+
 <table class="table">
 	<tr>
 		<th>
-			Name
+			Name		
 		</th>
 		<th>
-			DateOfAppointment
+			Date Of Appointment
 		</th>
 		<th>
-			CreateDate
+			Create Date
 		</th>
-
-
 	</tr>
 
 	@foreach (var item in Model)
 	{
 		<tr>
 			<td class="col">
-				<div id="divFailedMonitoring">
-					<button class="buttonFailed switch-direction" onclick="ShowErrorMessage(this.value)" value="@item.Name">gggg</button>
-
-				</div>
+				<button id="btnPopup" class="btn btn-default" onclick="Popup(this.value)" value="Name: @item.Name <br/>DateOfAppointment:  @item.DateOfAppointment<br/> CreateDate: @item.CreateDate‏">@item.Name</button>
 			</td>
 			<td class="col">
 				@item.DateOfAppointment
 			</td>
 			<td class="col">
 				@item.CreateDate‏
-
 			</td>
-
 		</tr>
 	}
 
@@ -56,19 +47,16 @@
 
 
 
-
 <div id="uploadForm" class="modal fade">
 	<div class="modal-dialog ">
 		<div class="modal-content">
-			<div class="modal-header colorDivPopup">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button><br/>
 			</div>
-			<div class="modal-body colorDivPopup">
-				<div>
-				
-				</div>
+			<div class="modal-body" id="fa">
+			
 			</div>
-			<div class="modal-footer colorDivPopup">
+			<div class="modal-footer">
 				<button type="button" class="btn btn-default switch-direction" data-dismiss="modal">Close</button>
 			</div>
 		</div>
