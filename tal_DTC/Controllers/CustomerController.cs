@@ -35,7 +35,7 @@ namespace tal_DTC.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("", "UserName or Password ir wrong.");
+                        ModelState.AddModelError("", "UserName or Password is wrong.");
                     }
 
                 }
@@ -43,11 +43,9 @@ namespace tal_DTC.Controllers
             }
             catch (Exception)
             {
-
-                //ModelState.AddModelError("", "UserName or Password ir wrong.");
-                //return View("UserName or Password ir wrong.");//User not in DB
-                return RedirectToAction("LogIn");
-
+                ModelState.Clear();
+                ViewBag.Message = "UserName or Password is wrong.";
+                return View();
             }
 
         }
@@ -78,22 +76,10 @@ namespace tal_DTC.Controllers
             catch (Exception)
             {
                 ModelState.Clear();
-                ViewBag.Message = "User Name: "+ c.UserName + " is already exists in the system.";
+                ViewBag.Message = "Error: userName "+ c.UserName + " is already exists in the system.";
                 return View();
             }
         }
-
-
-        //public ActionResult ShowAppointmentsList()
-        //{
-        //    using (dogsEntities db = new dogsEntities())
-        //    {
-        //        var AppointmentsList = db.Database.SqlQuery<ViewAppointments_Result>("exec ViewAppointments").ToList<ViewAppointments_Result>();
-
-        //        return View(AppointmentsList.ToList());
-        //    }
-
-        //}
 
 
     }

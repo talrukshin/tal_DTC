@@ -4,79 +4,80 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<script>
-	$(document).ready(function () {
-
-	});
-
-	function Popup(str) {
-		$('.modal-body').html(str);
-		$('#uploadForm').modal();
-	}
-</script>
-
 <h2>Appointments</h2>
-
 @using (Html.BeginForm())
 {
-	<div class="form-inline">
+	<br />
+	<div id="divSearch" class="form-inline">
+		@Html.TextBox("SearchString", null, new { @class = "form-control", @placeholder = "Search by name:" })
 
-		@Html.TextBox("SearchString", null, new { @class = "form-control", @placeholder = "Find by name:" })
-				
+		@*@Html.TextBox("startdate", null, new { @class = "form-control", @placeholder = "Search by date:" })*@
+
 		<input type="submit" value="Search" class="btn btn-default" />
 		<br /><br />
 	</div>
 }
-<table class="table">
-	<tr>
-		<th>
-			@Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm })
-			<span class="sort-icon"></span>
-		</th>
-		<th>
-			@Html.ActionLink("DateOfAppointment", "Index", new { sortOrder = ViewBag.DateSortParm })
 
-		</th>
-		<th>
-			@Html.ActionLink("CreateDate", "Index", new { sortOrder = ViewBag.DateSortParm })
-		</th>
-	</tr>
+<div id="divTbl">
 
-	@foreach (var item in Model)
-	{
+	<table class="table" id="tblAppointments">
 		<tr>
-			<td class="col">
-				<button id="btnPopup" class="btn btn-default" onclick="Popup(this.value)" value="Name: @item.Name <br/>DateOfAppointment:  @item.DateOfAppointment<br/> CreateDate: @item.CreateDate‏">@item.Name</button>
-			</td>
-			<td class="col">
-				@Convert.ToDateTime(@item.DateOfAppointment).ToString("dd/MM/yyyy HH:mm")
+			<th>
+				@Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm })
 
-			</td>
-			<td class="col">
-				@Convert.ToDateTime(@item.CreateDate).ToString("dd/MM/yyyy HH:mm")
-
-			</td>
+			</th>
+			<th>
+				@Html.ActionLink("Date of appointment", "Index", new { sortOrder = ViewBag.DateSortParm })
+			</th>
+			<th>
+				@Html.ActionLink("Create date", "Index", new { sortOrder = ViewBag.DateSortParm })
+			</th>
 		</tr>
-	}
 
-</table>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td class="col">
+					<button id="btnPopup" class="btn btn-default" onclick="Popup(this.value)" value="Name: @item.Name <br/>Date of appointment:  @Convert.ToDateTime(@item.DateOfAppointment).ToString("dd/MM/yyyy HH:mm")<br/> Create Date: @Convert.ToDateTime(@item.CreateDate).ToString("dd/MM/yyyy HH:mm")‏">@item.Name</button>
+				</td>
+				<td class="col">
+					@*@item.DateOfAppointment*@
+					@Convert.ToDateTime(@item.DateOfAppointment).ToString("dd/MM/yyyy HH:mm")
+				</td>
+				<td class="col">
+					@*@item.CreateDate*@
+					@Convert.ToDateTime(@item.CreateDate).ToString("dd/MM/yyyy HH:mm")
+				</td>
+			</tr>
+		}
+
+	</table>
 
 
 
-<div id="uploadForm" class="modal fade">
-	<div class="modal-dialog ">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button><br />
-			</div>
-			<div class="modal-body" id="fa">
+	<div id="uploadForm" class="modal fade">
+		<div class="modal-dialog ">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button><br />
+				</div>
+				<div class="modal-body">
 
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default switch-direction" data-dismiss="modal">Close</button>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default switch-direction" data-dismiss="modal">Close</button>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
+@section Scripts {
+	<link href="~/CSS/Appointments.css" rel="stylesheet" />
+	<script src="~/JS/JavaScript.js"></script>
+
+}
+
+
+
 

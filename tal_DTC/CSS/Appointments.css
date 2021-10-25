@@ -1,0 +1,44 @@
+﻿
+/*tblAppointments*/
+
+
+#btnPopup {
+	width: 50%;
+}
+
+
+#divTbl {
+	background-color: #fff;
+	text-align: center;
+}
+
+	#divTbl th {
+		text-align: center;
+	}
+
+#tblAppointments {
+
+	border-collapse: collapse;
+	width: 100%;
+}
+
+	#tblAppointments td, #tblAppointments th {
+		border: 1px solid #ddd;
+		padding: 8px;
+	}
+
+	#tblAppointments tr:nth-child(even) {
+		background-color: #f2f2f2;
+	}
+
+	#tblAppointments tr:hover {
+		background-color: #ddd;
+	}
+
+	#tblAppointments th {
+		padding-top: 12px;
+		padding-bottom: 12px;
+		text-align: center;
+		background-color: rgba(150, 172, 243, 0.33);
+		color: white;
+	}

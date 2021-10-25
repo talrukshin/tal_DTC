@@ -1,7 +1,7 @@
 ﻿body {
 	padding: 100px 0 0 0;
 	color: #000;
-	background: #f6f7f4;
+	background: rgba(246, 247, 244, 0.86);
 	text-align: center;
 }
 
@@ -46,3 +46,4 @@
 		.SignUp-form .btn:hover, .SignUp-form .btn:focus {
 			background: #8aa3f8 !important;
 		}
+

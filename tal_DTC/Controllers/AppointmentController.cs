@@ -10,7 +10,7 @@ namespace tal_DTC.Controllers
     {
         // GET: Appointment
 
-        public ActionResult Index(string sortOrder, string searchString)
+        public ActionResult Index(string sortOrder, string searchString/*, string startdate*/)
         {
             using (dogsEntities db = new dogsEntities())
             {
@@ -19,13 +19,23 @@ namespace tal_DTC.Controllers
                 ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";             
                 ViewBag.CurrentFilter = searchString;
 
+               // ViewBag.Datetime = DateTime.UtcNow;
+               // ViewBag.startdate = startdate;
+
                 var AppointmentsList = from a in db.Database.SqlQuery<ViewAppointments_Result>("exec ViewAppointments")
                                        select a;
        
                 if (!String.IsNullOrEmpty(searchString))
                 {
-                    AppointmentsList = AppointmentsList.Where(a => a.Name.Contains(searchString));
+                   AppointmentsList = AppointmentsList.Where(a => a.Name.Contains(searchString));
                 }
+                //if (startdate!=null)
+                //{
+                   
+                //    AppointmentsList = AppointmentsList.Where(x => x.CreateDate.ToString().Contains(startdate.ToString()));
+
+                //}
+
                 switch (sortOrder)
                 {
                     case "name_desc":
@@ -35,7 +45,7 @@ namespace tal_DTC.Controllers
                         AppointmentsList = AppointmentsList.OrderBy(a => a.DateOfAppointment);
                         break;
                     case "date_desc":
-                        AppointmentsList = AppointmentsList.OrderByDescending(a => a.CreateDate);
+                        AppointmentsList = AppointmentsList.OrderByDescending(a => a.DateOfAppointment);
                         break;
                     default: 
                         AppointmentsList = AppointmentsList.OrderBy(a => a.Name);
