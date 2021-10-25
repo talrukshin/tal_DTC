@@ -8,6 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
 
 
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
@@ -20,22 +21,20 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "LogIn", "Customer", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Dog barber shop", "LogIn", "Customer", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
 					<li>@Html.ActionLink("Log In", "LogIn", "Customer")</li>
 					<li>@Html.ActionLink("Sign Up", "SignUp", "Customer")</li>
-                    <li>@Html.ActionLink("Appointments", "ShowAppointmentsList", "Customer")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Appointments", "Index", "Appointment")</li>           
                 </ul>
             </div>
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
+       
         <footer>
 
         </footer>

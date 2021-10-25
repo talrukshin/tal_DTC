@@ -11,7 +11,7 @@ namespace tal_DTC.Controllers
         // GET: Customer
         public ActionResult Index()
         {
-            return View();           
+            return View();
         }
 
         public ActionResult LogIn()
@@ -31,7 +31,7 @@ namespace tal_DTC.Controllers
                     {
                         Session["UserName"] = cust.UserName.ToString();
                         Session["Password"] = cust.Password.ToString();
-                        return RedirectToAction("ShowAppointmentsList");// table appartment
+                        return RedirectToAction("Index", "Appointment");// table appartment
                     }
                     else
                     {
@@ -61,30 +61,39 @@ namespace tal_DTC.Controllers
         [HttpPost]
         public ActionResult SignUp(Customer c)
         {
-            if (ModelState.IsValid)
+            try
             {
-                using (dogsEntities db = new dogsEntities())
+                if (ModelState.IsValid)
                 {
-                    db.Customers.Add(c);
-                    db.SaveChanges();
+                    using (dogsEntities db = new dogsEntities())
+                    {
+                        db.Customers.Add(c);
+                        db.SaveChanges();
+                    }
+                    ModelState.Clear();
+                    ViewBag.Message = c.Name + " successfullly registered.";
                 }
-                ModelState.Clear();
-                ViewBag.Message = c.Name + " successfullly registered.";
+                return View();
             }
-            return View();
-        }
-
-
-        public ActionResult ShowAppointmentsList()
-        {
-            using (dogsEntities db = new dogsEntities())
+            catch (Exception)
             {
-                var AppointmentsList = db.Database.SqlQuery<ViewAppointments_Result>("exec ViewAppointments").ToList<ViewAppointments_Result>();
-
-                return View(AppointmentsList.ToList());
+                ModelState.Clear();
+                ViewBag.Message = "User Name: "+ c.UserName + " is already exists in the system.";
+                return View();
             }
-
         }
+
+
+        //public ActionResult ShowAppointmentsList()
+        //{
+        //    using (dogsEntities db = new dogsEntities())
+        //    {
+        //        var AppointmentsList = db.Database.SqlQuery<ViewAppointments_Result>("exec ViewAppointments").ToList<ViewAppointments_Result>();
+
+        //        return View(AppointmentsList.ToList());
+        //    }
+
+        //}
 
 
     }
