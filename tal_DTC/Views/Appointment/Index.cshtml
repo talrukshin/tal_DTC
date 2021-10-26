@@ -5,15 +5,15 @@
 }
 
 <h2>Appointments</h2>
+
 @using (Html.BeginForm())
 {
 	<br />
 	<div id="divSearch" class="form-inline">
-		@Html.TextBox("SearchString", null, new { @class = "form-control", @placeholder = "Search by name:" })
+		@Html.TextBox("SearchString", null, new { @class = "form-control", @placeholder = "Search by name..." })
+		@Html.TextBox("startdate", null, new { @class = "form-control", @placeholder = "Search by date of appointment.." })
 
-		@*@Html.TextBox("startdate", null, new { @class = "form-control", @placeholder = "Search by date:" })*@
-
-		<input type="submit" value="Search" class="btn btn-default" />
+		<input type="submit" value="Search" class="btn btn-primary" />
 		<br /><br />
 	</div>
 }
@@ -24,7 +24,6 @@
 		<tr>
 			<th>
 				@Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm })
-
 			</th>
 			<th>
 				@Html.ActionLink("Date of appointment", "Index", new { sortOrder = ViewBag.DateSortParm })
@@ -41,19 +40,14 @@
 					<button id="btnPopup" class="btn btn-default" onclick="Popup(this.value)" value="Name: @item.Name <br/>Date of appointment:  @Convert.ToDateTime(@item.DateOfAppointment).ToString("dd/MM/yyyy HH:mm")<br/> Create Date: @Convert.ToDateTime(@item.CreateDate).ToString("dd/MM/yyyy HH:mm")‏">@item.Name</button>
 				</td>
 				<td class="col">
-					@*@item.DateOfAppointment*@
-					@Convert.ToDateTime(@item.DateOfAppointment).ToString("dd/MM/yyyy HH:mm")
+					@Convert.ToDateTime(@item.DateOfAppointment).ToString("dd.MM.yyyy HH:mm")
 				</td>
 				<td class="col">
-					@*@item.CreateDate*@
-					@Convert.ToDateTime(@item.CreateDate).ToString("dd/MM/yyyy HH:mm")
+					@Convert.ToDateTime(@item.CreateDate).ToString("dd.MM.yyyy HH:mm")
 				</td>
 			</tr>
 		}
-
 	</table>
-
-
 
 	<div id="uploadForm" class="modal fade">
 		<div class="modal-dialog ">
@@ -75,7 +69,6 @@
 @section Scripts {
 	<link href="~/CSS/Appointments.css" rel="stylesheet" />
 	<script src="~/JS/JavaScript.js"></script>
-
 }
 
 

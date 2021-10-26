@@ -7,8 +7,6 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
-
-
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
@@ -27,7 +25,7 @@
                 <ul class="nav navbar-nav">
 					<li>@Html.ActionLink("Log In", "LogIn", "Customer")</li>
 					<li>@Html.ActionLink("Sign Up", "SignUp", "Customer")</li>
-                    <li>@Html.ActionLink("Appointments", "Index", "Appointment")</li>           
+                    @*<li>@Html.ActionLink("Appointments", "Index", "Appointment")</li>*@           
                 </ul>
             </div>
         </div>

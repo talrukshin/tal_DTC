@@ -10,48 +10,58 @@ namespace tal_DTC.Controllers
     {
         // GET: Appointment
 
-        public ActionResult Index(string sortOrder, string searchString/*, string startdate*/)
+        public ActionResult Index(string sortOrder, string searchString, string startdate)
         {
-            using (dogsEntities db = new dogsEntities())
+            try
             {
-                ViewBag.CurrentSort = sortOrder;
-                ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-                ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";             
-                ViewBag.CurrentFilter = searchString;
-
-               // ViewBag.Datetime = DateTime.UtcNow;
-               // ViewBag.startdate = startdate;
-
-                var AppointmentsList = from a in db.Database.SqlQuery<ViewAppointments_Result>("exec ViewAppointments")
-                                       select a;
-       
-                if (!String.IsNullOrEmpty(searchString))
+                using (dogsEntities db = new dogsEntities())
                 {
-                   AppointmentsList = AppointmentsList.Where(a => a.Name.Contains(searchString));
-                }
-                //if (startdate!=null)
-                //{
-                   
-                //    AppointmentsList = AppointmentsList.Where(x => x.CreateDate.ToString().Contains(startdate.ToString()));
+                    ViewBag.CurrentSort = sortOrder;
+                    ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+                    ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+                    ViewBag.CurrentFilter = searchString;
+                    ViewBag.startdate = startdate;
 
-                //}
 
-                switch (sortOrder)
-                {
-                    case "name_desc":
-                        AppointmentsList = AppointmentsList.OrderByDescending(a => a.Name);
-                        break;
-                    case "Date":
-                        AppointmentsList = AppointmentsList.OrderBy(a => a.DateOfAppointment);
-                        break;
-                    case "date_desc":
-                        AppointmentsList = AppointmentsList.OrderByDescending(a => a.DateOfAppointment);
-                        break;
-                    default: 
-                        AppointmentsList = AppointmentsList.OrderBy(a => a.Name);
-                        break;
+
+                    var AppointmentsList = from a in db.Database.SqlQuery<ViewAppointments_Result>("exec ViewAppointments")
+                                           select a;
+
+
+
+                    if (!String.IsNullOrEmpty(searchString))
+                    {
+                        AppointmentsList = AppointmentsList.Where(a => a.Name.Contains(searchString));
+                    }
+                    if (!String.IsNullOrEmpty(startdate))
+                    {
+                       
+                        AppointmentsList = AppointmentsList.Where(x => x.DateOfAppointment.ToString("dd.MM.yyyy HH:mm").Contains(startdate.ToString()));
+
+                    }
+
+                    switch (sortOrder)
+                    {
+                        case "name_desc":
+                            AppointmentsList = AppointmentsList.OrderByDescending(a => a.Name);
+                            break;
+                        case "Date":
+                            AppointmentsList = AppointmentsList.OrderBy(a => a.DateOfAppointment);
+                            break;
+                        case "date_desc":
+                            AppointmentsList = AppointmentsList.OrderByDescending(a => a.DateOfAppointment);
+                            break;
+                        default:
+                            AppointmentsList = AppointmentsList.OrderBy(a => a.Name);
+                            break;
+                    }
+                    return View(AppointmentsList.ToList());
                 }
-                return View(AppointmentsList.ToList());
+            }
+            catch (Exception)
+            {
+
+                return View();
             }
         }
     }
