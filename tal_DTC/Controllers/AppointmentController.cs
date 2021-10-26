@@ -22,22 +22,16 @@ namespace tal_DTC.Controllers
                     ViewBag.CurrentFilter = searchString;
                     ViewBag.startdate = startdate;
 
-
-
                     var AppointmentsList = from a in db.Database.SqlQuery<ViewAppointments_Result>("exec ViewAppointments")
                                            select a;
-
-
 
                     if (!String.IsNullOrEmpty(searchString))
                     {
                         AppointmentsList = AppointmentsList.Where(a => a.Name.Contains(searchString));
                     }
                     if (!String.IsNullOrEmpty(startdate))
-                    {
-                       
+                    {                       
                         AppointmentsList = AppointmentsList.Where(x => x.DateOfAppointment.ToString("dd.MM.yyyy HH:mm").Contains(startdate.ToString()));
-
                     }
 
                     switch (sortOrder)
